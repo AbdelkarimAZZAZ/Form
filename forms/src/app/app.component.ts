@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { User } from './user'
+import { User } from './user' ;
 import { EnregistrementService } from './enregistrement.service'
 @Component({
   selector: 'app-root',
@@ -12,13 +12,20 @@ export class AppComponent {
 
   userModel = new User (' Abdelkarim', 'AZZAZ',624, 'abdelkarim@azzaz.dz','Jules Guesde','default', true)
 
+    submitted = false;
+
+ constructor(private _enregistrementService: EnregistrementService) {}
 
 
+  onSubmit() {
+     this.submitted = true;
 
-  onSubmit()
-{
- console.log(this.userModel) ;
-}
+    this._enregistrementService.register(this.userModel)
+      .subscribe(
+        data => console.log('Success!', data),
+        error => console.error('Error!', error),
+      )
+  }
 
 
 }
